@@ -42,15 +42,13 @@ PopupMenu.OnMenuItemClickListener {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.atividade,menu);
+        getMenuInflater().inflate(R.menu.atividade, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item)
-    {
-        switch(item.getItemId())
-        {
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
             case R.id.chamar_customDialog:
                 CustomDialog dialog = new CustomDialog(this);
                 dialog.show(getFragmentManager(), "customDialog");
@@ -66,6 +64,7 @@ PopupMenu.OnMenuItemClickListener {
     public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
         PopupMenu popup = new PopupMenu(this, view);
         popup.inflate(R.menu.popup);
+        popup.setOnMenuItemClickListener(this);
         popup.show();
 
         return true;
@@ -73,6 +72,16 @@ PopupMenu.OnMenuItemClickListener {
 
     @Override
     public boolean onMenuItemClick(MenuItem menuItem) {
-        return false;
+        switch (menuItem.getItemId()) {
+
+            case R.id.action_editar:
+                CustomDialog dialog = new CustomDialog(this);
+                dialog.show(getFragmentManager(), "customDialog");
+                insertMode = false;
+             default:
+                 adapter.removeItem(selectedItem);
+        }
+
+        return true;
     }
 }
