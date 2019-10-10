@@ -19,6 +19,7 @@ PopupMenu.OnMenuItemClickListener {
     private String selectedItemName;
     private int selectedItem;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -67,6 +68,9 @@ PopupMenu.OnMenuItemClickListener {
         popup.setOnMenuItemClickListener(this);
         popup.show();
 
+        selectedItem = i;
+
+        selectedItemName = adapter.getItem(i).toString();
         return true;
     }
 
@@ -78,6 +82,8 @@ PopupMenu.OnMenuItemClickListener {
                 CustomDialog dialog = new CustomDialog(this);
                 dialog.show(getFragmentManager(), "customDialog");
                 insertMode = false;
+                dialog.setItem(selectedItemName);
+                break;
              default:
                  adapter.removeItem(selectedItem);
         }
